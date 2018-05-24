@@ -1,6 +1,12 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <app-bs-navbar></app-bs-navbar>
 <div class="container">
+
+   App user is {{ appUser }}
     <router-outlet></router-outlet>
+
+    <button 
+    (click)="getValue()"
+    ></button>
 
 </div>
