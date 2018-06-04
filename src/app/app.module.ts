@@ -3,8 +3,11 @@ import { NgModule, Component } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
 import { RouterModule, Routes } from '@angular/router';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { NgForm, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -15,18 +18,16 @@ import { ProductsComponent } from './products/products.component';
 import { CheckOutComponent } from './check-out/check-out.component';
 import { OrderSuccessComponent } from './order-success/order-success.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { AdminProductFormComponent } from './admin-product-form/admin-product-form.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 
-import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { UserService } from './services/user.service';
 import { AdminAuthGuard } from './services/admin-auth-guard.service';
-
+import { CategoryService } from './services/category.service';
 
 
 const appRoutes: Routes = [
@@ -40,8 +41,9 @@ const appRoutes: Routes = [
   {path: 'my-orders', component: MyOrdersComponent, canActivate: [AuthGuard] },
   {path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard] },
 
-  {path: 'admin/admin-products', component: AdminProductsComponent, canActivate: [AuthGuard, AdminAuthGuard ]},
-  {path: 'admin/admin-orders', component: AdminOrdersComponent, canActivate: [AuthGuard, AdminAuthGuard ]}
+  {path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGuard, AdminAuthGuard ]},
+  {path: 'admin/products/new', component: AdminProductFormComponent, canActivate: [AuthGuard, AdminAuthGuard ]},
+  {path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuard, AdminAuthGuard ]}
 ];
 
 @NgModule({
@@ -56,10 +58,12 @@ const appRoutes: Routes = [
     OrderSuccessComponent,
     MyOrdersComponent,
     AdminProductsComponent,
-    AdminOrdersComponent
+    AdminOrdersComponent,
+    AdminProductFormComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     BrowserAnimationsModule,
     MatCheckboxModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -75,7 +79,8 @@ const appRoutes: Routes = [
     AuthService,
     AuthGuard,
     AdminAuthGuard,
-    UserService
+    UserService,
+    CategoryService
   ],
   bootstrap: [AppComponent]
 })
