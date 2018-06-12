@@ -8,6 +8,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { NgForm, FormsModule } from '@angular/forms';
+import { DataTableModule } from 'angular-4-data-table';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -66,6 +67,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
+    DataTableModule,
     MatCheckboxModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
